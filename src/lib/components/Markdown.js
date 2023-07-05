@@ -43,6 +43,21 @@ export const Markdown = (props) => {
                 loading="lazy"
               />
             </>
+          ) : props.href && props.href.includes("youtu.be") ? (
+            (() => {
+              const videoId = props.href.split("/").pop();
+              // Use the video ID in the iframe src
+              return (
+                <iframe
+                  id="ytplayer"
+                  type="text/html"
+                  width="640"
+                  height="360"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  frameBorder="0"
+                />
+              );
+            })()
           ) : props.href && props.href.includes("youtube") ? (
             // Extract the video ID from the YouTube URL
             (() => {
