@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import IframeResizer from "iframe-resizer-react";
 import { deepCopy, deepEqual } from "../data/utils";
 

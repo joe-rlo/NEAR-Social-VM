@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useLayoutEffect,
   useState,
+  useRef,
 } from "react";
 import { useNear } from "../data/near";
 import ConfirmTransactions from "./ConfirmTransactions";
