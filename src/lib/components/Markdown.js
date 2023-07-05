@@ -41,6 +41,7 @@ export const Markdown = (props) => {
                 allowFullScreen
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
+                id="spotifyplayer"
               />
             </>
           ) : props.href && props.href.includes("youtu.be") ? (
@@ -51,8 +52,8 @@ export const Markdown = (props) => {
                 <iframe
                   id="ytplayer"
                   type="text/html"
-                  width="640"
-                  height="360"
+                  width="100%"
+                  height="auto"
                   src={`https://www.youtube.com/embed/${videoId}`}
                   frameBorder="0"
                 />
@@ -67,8 +68,8 @@ export const Markdown = (props) => {
                 <iframe
                   id="ytplayer"
                   type="text/html"
-                  width="640"
-                  height="360"
+                  width="100%"
+                  height="auto"
                   src={`https://www.youtube.com/embed/${videoId}`}
                   frameBorder="0"
                 />
