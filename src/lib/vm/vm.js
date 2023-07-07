@@ -247,7 +247,6 @@ const Keywords = {
   Uint8Array,
   Map,
   Set,
-  Video,
   clipboard: true,
   Ethers: true,
   WebSocket: true,
