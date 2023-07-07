@@ -84,12 +84,59 @@ export const Markdown = (props) => {
               Your browser does not support the video tag.
             </video>
           ) : props.href && props.href.includes(".gif") ? (
-            // support gif links
-            <img className="img-fluid" src={props.href} />
+            // support gif link
+            <>
+              <img
+                src={props.href}
+                data-toggle="modal"
+                data-target="#imgModal"
+                style="cursor:pointer"
+              />
+              <div
+                class="modal fade"
+                id="imgModal"
+                tabindex="-1"
+                role="dialog"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <img src={props.href} class="img-fluid" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
           ) : (
             <a target="_blank" {...props} />
           ),
-        img: ({ node, ...props }) => <img className="img-fluid" {...props} />,
+        img: ({ node, ...props }) => (
+          <>
+            <img
+              className="img-fluid"
+              data-toggle="modal"
+              data-target="#imgModal"
+              style="cursor:pointer"
+              {...props}
+            />
+            <div
+              class="modal fade"
+              id="imgModal"
+              tabindex="-1"
+              role="dialog"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <img src={props.href} class="img-fluid" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        ),
         blockquote: ({ node, ...props }) => (
           <blockquote className="blockquote" {...props} />
         ),
