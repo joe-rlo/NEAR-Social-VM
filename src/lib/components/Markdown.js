@@ -90,7 +90,6 @@ export const Markdown = (props) => {
                 src={props.href}
                 data-toggle="modal"
                 data-target="#imgModal"
-                style="cursor:pointer"
               />
               <div
                 class="modal fade"
@@ -117,7 +116,6 @@ export const Markdown = (props) => {
               className="img-fluid"
               data-toggle="modal"
               data-target="#imgModal"
-              style="cursor:pointer"
               {...props}
             />
             <div
