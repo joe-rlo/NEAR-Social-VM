@@ -164,6 +164,7 @@ const ApprovedTagsSimple = {
   text: true,
   textPath: true,
   tspan: true,
+  video: true,
   use: false,
   // svg ends
   a: true,
@@ -246,6 +247,7 @@ const Keywords = {
   Uint8Array,
   Map,
   Set,
+  Video,
   clipboard: true,
   Ethers: true,
   WebSocket: true,

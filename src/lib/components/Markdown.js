@@ -52,8 +52,7 @@ export const Markdown = (props) => {
                 <iframe
                   id="ytplayer"
                   type="text/html"
-                  width="100%"
-                  height="auto"
+                  height="480px"
                   src={`https://www.youtube.com/embed/${videoId}`}
                   frameBorder="0"
                 />
@@ -68,13 +67,25 @@ export const Markdown = (props) => {
                 <iframe
                   id="ytplayer"
                   type="text/html"
-                  width="100%"
-                  height="auto"
+                  height="480px"
                   src={`https://www.youtube.com/embed/${videoId}`}
                   frameBorder="0"
                 />
               );
             })()
+          ) : props.href && props.href.includes(".mp4") ? (
+            <video id="videoPlayer" width="320" height="240" controls>
+              <source src={props.href} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : props.href && props.href.includes(".mov") ? (
+            <video id="videoPlayer" width="320" height="240" controls>
+              <source src={props.href} type="video/quicktime" />
+              Your browser does not support the video tag.
+            </video>
+          ) : props.href && props.href.includes(".gif") ? (
+            // support gif links
+            <img className="img-fluid" {...props} />
           ) : (
             <a target="_blank" {...props} />
           ),
