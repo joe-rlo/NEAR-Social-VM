@@ -85,7 +85,9 @@ export const Markdown = (props) => {
             </video>
           ) : props.href && props.href.includes(".gif") ? (
             // support gif links
-            <img className="img-fluid" {...props} />
+            <>
+              <img className="img-fluid" {...props} />
+            </>
           ) : (
             <a target="_blank" {...props} />
           ),
