@@ -44,6 +44,20 @@ export const Markdown = (props) => {
                 id="spotifyplayer"
               />
             </>
+          ) : props.href && props.href.includes("youtube.com/watch") ? (
+            (() => {
+              const videoId = props.href.match(/v=([^&]+)/)?.[1];
+              // Use the video ID in the iframe src
+              return (
+                <iframe
+                  id="ytplayer"
+                  type="text/html"
+                  height="480px"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  frameBorder="0"
+                />
+              );
+            })()
           ) : props.href && props.href.includes("youtu.be") ? (
             (() => {
               const videoId = props.href.split("/").pop();
