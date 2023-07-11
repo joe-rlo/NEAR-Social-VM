@@ -52,7 +52,7 @@ export const Markdown = (props) => {
                 <iframe
                   id="ytplayer"
                   type="text/html"
-                  height="480px"
+                  height="240px"
                   src={`https://www.youtube.com/embed/${videoId}`}
                   frameBorder="0"
                 />
@@ -66,7 +66,7 @@ export const Markdown = (props) => {
                 <iframe
                   id="ytplayer"
                   type="text/html"
-                  height="480px"
+                  height="240px"
                   src={`https://www.youtube.com/embed/${videoId}`}
                   frameBorder="0"
                 />
@@ -81,7 +81,7 @@ export const Markdown = (props) => {
                 <iframe
                   id="ytplayer"
                   type="text/html"
-                  height="480px"
+                  height="240px"
                   src={`https://www.youtube.com/embed/${videoId}`}
                   frameBorder="0"
                 />
