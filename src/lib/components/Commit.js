@@ -194,16 +194,16 @@ export const CommitModal = (props) => {
             <button
               className="btn btn-primary"
               type="button"
-              onClick={() => setIsOpen(!isOpen)} // toggle collapse
+              onClick={() => setIsMDOpen(!isMDOpen)} // toggle collapse
             >
-              {isOpen ? "Hide" : "Show"} data
+              {isMDOpen ? "Hide" : "Show"} data
             </button>
 
             <span className="ms-2 text-muted">
               Click to see the data being saved
             </span>
 
-            <div className={isOpen ? "collapse show" : "collapse"}>
+            <div className={isMDOpen ? "collapse show" : "collapse"}>
               {commit.data ? (
                 <Markdown text={jsonMarkdown(commit.data)} />
               ) : (
