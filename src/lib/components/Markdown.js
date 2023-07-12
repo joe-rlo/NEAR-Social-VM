@@ -58,6 +58,20 @@ export const Markdown = (props) => {
                 />
               );
             })()
+          ) : props.href && props.href.includes("youtube.com/clip") ? (
+            (() => {
+              const videoId = props.href.split("/").pop();
+              // Use the video ID in the iframe src
+              return (
+                <iframe
+                  id="ytplayer"
+                  type="text/html"
+                  height="240px"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  frameBorder="0"
+                />
+              );
+            })()
           ) : props.href && props.href.includes("youtu.be") ? (
             (() => {
               const videoId = props.href.split("/").pop();
