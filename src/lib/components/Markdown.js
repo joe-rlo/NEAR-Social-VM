@@ -70,6 +70,7 @@ export const Markdown = (props) => {
                       frameBorder="0"
                     />
                   </a>
+                  <br />
                   <small>
                     <i>We cannot support clips yet, click to view on YouTube</i>
                   </small>
