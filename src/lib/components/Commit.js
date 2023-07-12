@@ -47,6 +47,8 @@ export const CommitModal = (props) => {
   const [writePermission, setWritePermission] = useState(null);
   const [giveWritePermission, setGiveWritePermission] = useState(true);
 
+  const [isMDOpen, setIsMDOpen] = useState(false);
+
   const showIntent = props.show;
   const onHide = props.onHide;
   const onCancel = () => {
@@ -171,6 +173,15 @@ export const CommitModal = (props) => {
         <Modal.Title>Saving data</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <small>
+          <i>
+            <b>What is this about?!</b> Since this saves data on-chain, we
+            sometimes need to prompt you to confirm this or to add a little bit
+            of funds, which will require a signed transaction. <br /> Also, when
+            this pops-up you can add some funds (credits) to your account to
+            minimize future prompts and transaction signing.
+          </i>
+        </small>
         {cantCommit ? (
           <div>
             <h5>
@@ -180,7 +191,19 @@ export const CommitModal = (props) => {
           </div>
         ) : commit ? (
           <div>
-            <div>
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={() => setIsOpen(!isOpen)} // toggle collapse
+            >
+              {isOpen ? "Hide" : "Show"} data
+            </button>
+
+            <span className="ms-2 text-muted">
+              Click to see the data being saved
+            </span>
+
+            <div className={isOpen ? "collapse show" : "collapse"}>
               {commit.data ? (
                 <Markdown text={jsonMarkdown(commit.data)} />
               ) : (
@@ -218,7 +241,7 @@ export const CommitModal = (props) => {
                       variant="outline-success"
                       value={0}
                     >
-                      No Deposit
+                      No Extra Deposit
                     </ToggleButton>
                     <ToggleButton
                       id="esd-5000"

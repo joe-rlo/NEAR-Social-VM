@@ -53,23 +53,27 @@ export const Markdown = (props) => {
                   id="ytplayer"
                   type="text/html"
                   height="240px"
-                  src={`https://www.youtube.com/embed/${videoId}`}
+                  src={`https://www.youtube-nocookie.com/embed/${videoId}`}
                   frameBorder="0"
                 />
               );
             })()
           ) : props.href && props.href.includes("youtube.com/clip") ? (
             (() => {
-              const videoId = props.href.split("/").pop();
               // Use the video ID in the iframe src
               return (
-                <iframe
-                  id="ytplayer"
-                  type="text/html"
-                  height="240px"
-                  src={`https://www.youtube.com/embed/${videoId}`}
-                  frameBorder="0"
-                />
+                <>
+                  <a href={props.href} target="_blank">
+                    <img
+                      id="ytclipplayer"
+                      src="https://bafkreier7rnyyimqejrfpm7igsxh5gnrwn5sgg2p7elculn7phw5yzrhki.ipfs.nftstorage.link/"
+                      frameBorder="0"
+                    />
+                  </a>
+                  <small>
+                    <i>We cannot support clips yet, click to view on YouTube</i>
+                  </small>
+                </>
               );
             })()
           ) : props.href && props.href.includes("youtu.be") ? (
@@ -81,7 +85,7 @@ export const Markdown = (props) => {
                   id="ytplayer"
                   type="text/html"
                   height="240px"
-                  src={`https://www.youtube.com/embed/${videoId}`}
+                  src={`https://www.youtube-nocookie.com/embed/${videoId}`}
                   frameBorder="0"
                 />
               );
@@ -96,7 +100,7 @@ export const Markdown = (props) => {
                   id="ytplayer"
                   type="text/html"
                   height="240px"
-                  src={`https://www.youtube.com/embed/${videoId}`}
+                  src={`https://www.youtube-nocookie.com/embed/${videoId}`}
                   frameBorder="0"
                 />
               );
