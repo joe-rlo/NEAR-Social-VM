@@ -540,32 +540,35 @@ class VmStack {
         status.img = obj[key];
         attributes.onChange = (files) => {
           if (files?.length > 0) {
-            obj[key] = {
-              uploading: true,
-              cid: null,
-            };
-            this.vm.setReactState(this.vm.state.state);
-            ipfsUpload(files[0]).then((cid) => {
-              if (!this.vm.alive) {
-                return;
-              }
-              const { obj, key } = this.vm.vmStack.resolveMemberExpression(
-                value.expression,
-                {
-                  requireState: true,
-                  left: true,
-                }
-              );
-              obj[key] = {
-                cid,
+            files.forEach((file, index) => {
+              obj[`${key}_${index}`] = {
+                uploading: true,
+                cid: null,
               };
               this.vm.setReactState(this.vm.state.state);
+              ipfsUpload(file).then((cid) => {
+                if (!this.vm.alive) {
+                  return;
+                }
+                const { obj, key } = this.vm.vmStack.resolveMemberExpression(
+                  value.expression,
+                  {
+                    requireState: true,
+                    left: true,
+                  }
+                );
+                obj[`${key}_${index}`] = {
+                  cid,
+                };
+                this.vm.setReactState(this.vm.state.state);
+              });
             });
           } else {
             obj[key] = null;
             this.vm.setReactState(this.vm.state.state);
           }
         };
+
       }
     });
     attributes.key =
@@ -641,29 +644,33 @@ class VmStack {
     } else if (element === "IpfsImageUpload") {
       return (
         <div className="d-inline-block" key={attributes.key}>
-          {status.img?.cid && (
-            <div
-              className="d-inline-block me-2 overflow-hidden align-middle"
-              style={{ width: "2.5em", height: "2.5em" }}
-            >
-              <img
-                className="rounded w-100 h-100"
-                style={{ objectFit: "cover" }}
-                src={ipfsUrl(status.img?.cid)}
-                alt="upload preview"
-              />
-            </div>
-          )}
+          {Object.keys(status).map((key) => {
+            const img = status[key];
+            return img?.cid && (
+              <div
+                className="d-inline-block me-2 overflow-hidden align-middle"
+                style={{ width: "2.5em", height: "2.5em" }}
+                key={key}
+              >
+                <img
+                  className="rounded w-100 h-100"
+                  style={{ objectFit: "cover" }}
+                  src={ipfsUrl(img.cid)}
+                  alt="upload preview"
+                />
+              </div>
+            );
+          })}
           <Files
-            multiple={false}
+            multiple={true}  // Enable multiple file selection
             accepts={["image/*"]}
             minFileSize={1}
             clickable
             {...attributes}
           >
-            {status.img?.uploading ? (
+            {Object.values(status).some(img => img?.uploading) ? (
               <>{Loading} Uploading</>
-            ) : status.img?.cid ? (
+            ) : Object.values(status).some(img => img?.cid) ? (
               "Replace"
             ) : (
               "Upload an Image"
