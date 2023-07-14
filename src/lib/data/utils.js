@@ -175,7 +175,7 @@ export const ipfsUpload = async (f) => {
   return (await res.json()).cid;
 };
 
-export const ipfsUrl = (cid) => `https://ipfs.near.social/ipfs/${cid}`;
+export const ipfsUrl = (cid) => `https://nftstorage.link/ipfs/${cid}`;
 
 const EstimatedKeyValueSize = 40 * 3 + 8 + 12;
 const EstimatedNodeSize = 40 * 2 + 8 + 10;
