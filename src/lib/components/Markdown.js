@@ -61,14 +61,20 @@ export const Markdown = (props) => {
             </>
           ) : props.href && props.href.includes("music.apple") ? (
             <>
-              <iframe
-                src={props.href.replace(
-                  "/music.apple.com",
-                  "/embed.music.apple.com"
-                )}
-               allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-                id="appleplayer"
-              />
+            <iframe
+              src={props.href.replace("/music.apple.com", "/embed.music.apple.com")}
+              allow="autoplay *; encrypted-media *;"
+              frameBorder="0"
+              height="150"
+              style={{
+                width: "100%",
+                maxWidth: "660px",
+                overflow: "hidden",
+                background: "transparent",
+              }}
+              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+              id="appleplayer"
+            />
             </>
           ) : props.href && props.href.includes("youtube.com/watch") ? (
             (() => {
