@@ -6,6 +6,7 @@ import React from "react";
 import mentions from "./remark/mentions";
 import hashtags from "./remark/hashtags";
 import paths from "./remark/paths";
+import widgets from "./remark/widgets";
 
 
 export const Markdown = (props) => {
@@ -15,6 +16,7 @@ export const Markdown = (props) => {
        onMention,
        onHashtag,
        onPath,
+       onWidget,
        syntaxHighlighterProps,
        ...rest
      } = props;
@@ -22,7 +24,7 @@ export const Markdown = (props) => {
     <ReactMarkdown
       plugins={[]}
       rehypePlugins={[]}
-      remarkPlugins={[gfm, mentions, hashtags, paths]}
+      remarkPlugins={[gfm, mentions, hashtags, paths, widgets]}
       children={text}
       components={{
         strong({ node, children, ...props }) {
@@ -32,6 +34,8 @@ export const Markdown = (props) => {
             return onHashtag(node.properties?.hashtag);
          } else if (onPath && node.properties?.path) {
            return onPath(node.properties);
+           } else if (onWidget && node.properties?.src) {
+            return onWidget(node.properties);
          }
           return <strong {...props}>{children}</strong>;
         },
@@ -53,6 +57,17 @@ export const Markdown = (props) => {
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
                 id="spotifyplayer"
+              />
+            </>
+          ) : props.href && props.href.includes("music.apple") ? (
+            <>
+              <iframe
+                src={props.href.replace(
+                  "/music.apple.com",
+                  "/embed.music.apple.com"
+                )}
+               allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                id="appleplayer"
               />
             </>
           ) : props.href && props.href.includes("youtube.com/watch") ? (
