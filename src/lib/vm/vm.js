@@ -29,6 +29,7 @@ import { nanoid, customAlphabet } from "nanoid";
 import _ from "lodash";
 import { Parser } from "acorn";
 import jsx from "acorn-jsx";
+import pLimit from "p-limit";
 
 // Radix:
 import * as Accordion from "@radix-ui/react-accordion";
@@ -538,6 +539,9 @@ class VmStack {
           left: true,
         });
         status.img = obj[key];
+        // Limit to 5 simultaneous uploads
+        const limit = pLimit(5);
+
         attributes.onChange = (files) => {
           if (files?.length > 0) {
             files.forEach((file, index) => {
@@ -568,7 +572,6 @@ class VmStack {
             this.vm.setReactState(this.vm.state.state);
           }
         };
-
       }
     });
     attributes.key =
@@ -646,31 +649,33 @@ class VmStack {
         <div className="d-inline-block" key={attributes.key}>
           {Object.keys(status).map((key) => {
             const img = status[key];
-            return img?.cid && (
-              <div
-                className="d-inline-block me-2 overflow-hidden align-middle"
-                style={{ width: "2.5em", height: "2.5em" }}
-                key={key}
-              >
-                <img
-                  className="rounded w-100 h-100"
-                  style={{ objectFit: "cover" }}
-                  src={ipfsUrl(img.cid)}
-                  alt="upload preview"
-                />
-              </div>
+            return (
+              img?.cid && (
+                <div
+                  className="d-inline-block me-2 overflow-hidden align-middle"
+                  style={{ width: "2.5em", height: "2.5em" }}
+                  key={key}
+                >
+                  <img
+                    className="rounded w-100 h-100"
+                    style={{ objectFit: "cover" }}
+                    src={ipfsUrl(img.cid)}
+                    alt="upload preview"
+                  />
+                </div>
+              )
             );
           })}
           <Files
-            multiple={true}  // Enable multiple file selection
+            multiple={true} // Enable multiple file selection
             accepts={["image/*"]}
             minFileSize={1}
             clickable
             {...attributes}
           >
-            {Object.values(status).some(img => img?.uploading) ? (
+            {Object.values(status).some((img) => img?.uploading) ? (
               <>{Loading} Uploading</>
-            ) : Object.values(status).some(img => img?.cid) ? (
+            ) : Object.values(status).some((img) => img?.cid) ? (
               "Replace"
             ) : (
               "Upload an Image"

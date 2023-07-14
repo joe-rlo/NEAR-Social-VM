@@ -1,3 +1,4 @@
+import gemoji from "remark-gemoji";
 import gfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -5,26 +6,23 @@ import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 import React from "react";
 import mentions from "./remark/mentions";
 import hashtags from "./remark/hashtags";
-import paths from "./remark/paths";
 import widgets from "./remark/widgets";
 
-
 export const Markdown = (props) => {
-    const {
-       onLinkClick,
-       text,
-       onMention,
-       onHashtag,
-       onPath,
-       onWidget,
-       syntaxHighlighterProps,
-       ...rest
-     } = props;
+  const {
+    onLinkClick,
+    text,
+    onMention,
+    onHashtag,
+    onWidget,
+    syntaxHighlighterProps,
+    ...rest
+  } = props;
   return (
     <ReactMarkdown
       plugins={[]}
       rehypePlugins={[]}
-      remarkPlugins={[gfm, mentions, hashtags, paths, widgets]}
+      remarkPlugins={[gfm, gemoji, mentions, hashtags, widgets]}
       children={text}
       components={{
         strong({ node, children, ...props }) {
@@ -32,11 +30,9 @@ export const Markdown = (props) => {
             return onMention(node.properties?.accountId);
           } else if (onHashtag && node.properties?.hashtag) {
             return onHashtag(node.properties?.hashtag);
-         } else if (onPath && node.properties?.path) {
-           return onPath(node.properties);
-           } else if (onWidget && node.properties?.src) {
+          } else if (onWidget && node.properties?.src) {
             return onWidget(node.properties);
-         }
+          }
           return <strong {...props}>{children}</strong>;
         },
         a: ({ node, ...props }) =>
@@ -61,20 +57,23 @@ export const Markdown = (props) => {
             </>
           ) : props.href && props.href.includes("music.apple") ? (
             <>
-            <iframe
-              src={props.href.replace("/music.apple.com", "/embed.music.apple.com")}
-              allow="autoplay *; encrypted-media *;"
-              frameBorder="0"
-              height="150"
-              style={{
-                width: "100%",
-                maxWidth: "660px",
-                overflow: "hidden",
-                background: "transparent",
-              }}
-              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-              id="appleplayer"
-            />
+              <iframe
+                src={props.href.replace(
+                  "/music.apple.com",
+                  "/embed.music.apple.com"
+                )}
+                allow="autoplay *; encrypted-media *;"
+                frameBorder="0"
+                height="150"
+                style={{
+                  width: "100%",
+                  maxWidth: "660px",
+                  overflow: "hidden",
+                  background: "transparent",
+                }}
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                id="appleplayer"
+              />
             </>
           ) : props.href && props.href.includes("youtube.com/watch") ? (
             (() => {
