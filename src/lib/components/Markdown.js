@@ -3,10 +3,39 @@ import gfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
-import React from "react";
+import React, { useEffect } from "react";
 import mentions from "./remark/mentions";
 import hashtags from "./remark/hashtags";
 import widgets from "./remark/widgets";
+
+function TweetEmbed({ tweetUrl }) {
+  useEffect(() => {
+    // This code loads the Twitter widget script.
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    document.body.appendChild(script);
+
+    return () => {
+      // Clean-up function removes the script when component unmounts
+      document.body.removeChild(script);
+    };
+  }, []); // Run this effect only on mount
+
+  useEffect(() => {
+    // When the tweetUrl prop changes, tell the Twitter widget script to scan for new Tweets
+    if (window.twttr && window.twttr.widgets) {
+      window.twttr.widgets.load();
+    }
+  }, [tweetUrl]); // Run this effect whenever tweetUrl changes
+
+  return (
+    <blockquote className="twitter-tweet">
+      <a href={tweetUrl} />
+    </blockquote>
+  );
+}
+
+export default TweetEmbed;
 
 export const Markdown = (props) => {
   const {
@@ -39,17 +68,7 @@ export const Markdown = (props) => {
           onLinkClick ? (
             <a onClick={onLinkClick} {...props} />
           ) : props.href && props.href.includes("twitter.com") ? (
-            <>
-              <blockquote class="twitter-tweet">
-                <p lang="en" dir="ltr" />
-                <a href={props.href} />
-              </blockquote>{" "}
-              <script
-                async
-                src="https://platform.twitter.com/widgets.js"
-                charset="utf-8"
-              ></script>
-            </>
+            <TweetEmbed tweetUrl={props.href} />
           ) : props.href && props.href.includes("spotify") ? (
             <>
               <iframe
