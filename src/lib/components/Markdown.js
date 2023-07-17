@@ -38,7 +38,6 @@ export const Markdown = (props) => {
         a: ({ node, ...props }) =>
           onLinkClick ? (
             <a onClick={onLinkClick} {...props} />
-<<<<<<< HEAD
           ) : props.href && props.href.includes("twitter.com") ? (
             <>
               <blockquote class="twitter-tweet">
@@ -52,12 +51,6 @@ export const Markdown = (props) => {
               ></script>
             </>
           ) : props.href && props.href.includes("spotify") ? (
-=======
-          ): props.href && props.href.includes('twitter.com') (
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr" /><a href={props.href}></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-          )
-          : props.href && props.href.includes("spotify") ? (
->>>>>>> master
             <>
               <iframe
                 style={{ borderRadius: "12px" }}
