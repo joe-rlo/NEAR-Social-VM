@@ -20,7 +20,7 @@ const TweetEmbed = ({ tweetUrl }) => {
 
       try {
         const response = await axios.get(apiUrl, { params });
-        setHtml(response.html);
+        setHtml(response.data.html);
       } catch (error) {
         console.error(`Error: ${error}`);
       }
@@ -63,7 +63,14 @@ export const Markdown = (props) => {
           onLinkClick ? (
             <a onClick={onLinkClick} {...props} />
           ) : props.href && props.href.includes("twitter.com") ? (
-            <TweetEmbed tweetUrl={props.href} />
+            (() => {
+              // Use the video ID in the iframe src
+              return (
+                <>
+                  <TweetEmbed tweetUrl={props.href} />
+                </>
+              );
+            })()
           ) : props.href && props.href.includes("spotify") ? (
             <>
               <iframe
