@@ -1,12 +1,36 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import parse from "html-react-parser";
 import gemoji from "remark-gemoji";
 import gfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
-import React from "react";
 import mentions from "./remark/mentions";
 import hashtags from "./remark/hashtags";
 import widgets from "./remark/widgets";
+
+const TweetEmbed = ({ tweetUrl }) => {
+  const [html, setHtml] = useState(null);
+
+  useEffect(() => {
+    async function getTweetEmbed() {
+      const apiUrl = "https://publish.twitter.com/oembed";
+      const params = { url: tweetUrl };
+
+      try {
+        const response = await axios.get(apiUrl, { params });
+        setHtml(response.data.html);
+      } catch (error) {
+        console.error(`Error: ${error}`);
+      }
+    }
+
+    getTweetEmbed();
+  }, [tweetUrl]);
+
+  return html ? parse(html) : null;
+};
 
 export const Markdown = (props) => {
   const {
@@ -38,6 +62,8 @@ export const Markdown = (props) => {
         a: ({ node, ...props }) =>
           onLinkClick ? (
             <a onClick={onLinkClick} {...props} />
+          ) : props.href && props.href.includes("twitter.com") ? (
+            <TweetEmbed tweetUrl={props.href} />
           ) : props.href && props.href.includes("spotify") ? (
             <>
               <iframe
