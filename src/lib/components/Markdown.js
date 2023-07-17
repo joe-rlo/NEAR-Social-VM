@@ -20,7 +20,7 @@ const TweetEmbed = ({ tweetUrl }) => {
 
       try {
         const response = await axios.get(apiUrl, { params });
-        setHtml(response.data.html);
+        setHtml(response.html);
       } catch (error) {
         console.error(`Error: ${error}`);
       }
@@ -28,7 +28,7 @@ const TweetEmbed = ({ tweetUrl }) => {
 
     getTweetEmbed();
   }, [tweetUrl]);
-
+  console.log(html);
   return html ? parse(html) : null;
 };
 
