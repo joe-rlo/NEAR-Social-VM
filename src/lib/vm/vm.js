@@ -577,6 +577,7 @@ class VmStack {
     attributes.key =
       attributes.key ?? `${this.vm.widgetSrc}-${element}-${this.vm.gIndex}`;
     delete attributes.dangerouslySetInnerHTML;
+    delete attributes.is;
     const basicElement =
       (isStyledComponent(customComponent) && customComponent?.target) ||
       element;
