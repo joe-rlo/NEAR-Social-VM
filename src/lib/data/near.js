@@ -45,7 +45,7 @@ const SupportedApiMethods = {
 };
 
 const apiCall = async (config, methodName, args, blockId, fallback) => {
-  if (!config.apiUrl || !(methodName in SupportedApiMethods)) {
+  if (!config.apiUrl || !SupportedApiMethods.hasOwnProperty(methodName)) {
     return fallback();
   }
   args = args || {};
@@ -250,6 +250,7 @@ async function _initNear({
     selector,
     keyStore,
     nearConnection,
+    features,
   };
 
   _near.nearArchivalConnection = nearAPI.Connection.fromConfig({
