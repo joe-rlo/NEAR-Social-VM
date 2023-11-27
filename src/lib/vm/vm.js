@@ -13,7 +13,7 @@ import {
   ReactKey,
 } from "../data/utils";
 import Files from "react-files";
-import { sanitizeUrl } from "@braintree/sanitize-url";
+import { isValidAttribute } from "dompurify";
 import { Markdown } from "../components/Markdown";
 import InfiniteScroll from "react-infinite-scroller";
 import { CommitButton } from "../components/Commit";
@@ -596,7 +596,9 @@ class VmStack {
     } else if (basicElement === "a") {
       Object.entries(attributes).forEach(([name, value]) => {
         if (name.toLowerCase() === "href") {
-          attributes[name] = sanitizeUrl(value);
+          attributes[name] = isValidAttribute("a", "href", value)
+            ? value
+            : "about:blank";
         }
       });
     } else if (element === "Widget") {

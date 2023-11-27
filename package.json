@@ -7,7 +7,7 @@
     "dist"
   ],
   "dependencies": {
-    "@braintree/sanitize-url": "6.0.0",
+    "dompurify": "^3.0.6",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.4",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
