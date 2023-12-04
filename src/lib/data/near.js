@@ -32,7 +32,7 @@ export const MainNearConfig = {
   networkId: "mainnet",
   nodeUrl: "https://rpc.mainnet.near.org",
   archivalNodeUrl: "https://rpc.mainnet.internal.near.org",
-  contractName: "mint.sharddog.near",
+  contractName: "social.near",
   walletUrl: "https://wallet.near.org",
   wrapNearAccountId: "wrap.near",
   apiUrl: "https://api.near.social",
